@@ -176,39 +176,39 @@
       flex: 1;
       flex-direction: column;
       justify-content: space-between;
-      padding: 18px 15px 18px;
+      padding: 16px 14px 16px;
       background: linear-gradient(180deg, #eff6ff 0%, #f8fafc 100%);
     }
     .guide-header {
       text-align: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .guide-header h2 {
-      margin: 4px 0 4px;
-      font-size: 1.28rem;
+      margin: 4px 0 3px;
+      font-size: 1.24rem;
       font-weight: 900;
       color: #1e3a8a;
     }
     .guide-header p {
       margin: 0;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: #475569;
       font-weight: 600;
     }
     .guide-list {
       display: flex;
       flex-direction: column;
-      gap: 9px;
-      margin-bottom: 14px;
+      gap: 8px;
+      margin-bottom: 12px;
     }
     .guide-item {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
+      gap: 9px;
       background: #ffffff;
       border: 1.5px solid #e2e8f0;
-      border-radius: 13px;
-      padding: 10px 12px;
+      border-radius: 12px;
+      padding: 9px 11px;
       box-shadow: 0 3px 10px rgba(15, 23, 42, 0.03);
     }
     .guide-item.danger {
@@ -216,22 +216,22 @@
       background: #fff5f5;
     }
     .guide-icon {
-      font-size: 1.25rem;
+      font-size: 1.18rem;
       line-height: 1.1;
       flex-shrink: 0;
       margin-top: 1px;
     }
     .guide-title {
-      font-size: 0.86rem;
+      font-size: 0.83rem;
       font-weight: 800;
       color: #0f172a;
       margin-bottom: 2px;
     }
     .guide-item.danger .guide-title { color: #991b1b; }
     .guide-desc {
-      font-size: 0.79rem;
+      font-size: 0.77rem;
       color: #475569;
-      line-height: 1.42;
+      line-height: 1.38;
     }
     .guide-actions {
       display: flex;
@@ -787,7 +787,7 @@
         <div class="rule-pills">
           <span class="rule-pill">⏱️ 3 Menit / Soal</span>
           <span class="rule-pill">❌ Maks. 3x Salah</span>
-          <span class="rule-pill">🏆 20 Langkah = Trophy</span>
+          <span class="rule-pill">🚫 Anti Pindah Tab</span>
         </div>
       </div>
 
@@ -828,7 +828,7 @@
             <div class="guide-icon">⏱️</div>
             <div>
               <div class="guide-title">Waktu 3 Menit per Soal (Habis = Langsung Game Over)</div>
-              <div class="guide-desc">Setiap soal diberi waktu <strong>03:00 menit</strong>. Jika waktu habis sebelum soal terjawab benar, Nailong langsung jatuh dan permainan <strong>GAME OVER</strong>.</div>
+              <div class="guide-desc">Setiap soal diberi waktu <strong>03:00 menit</strong>. Jika melebihi waktu sebelum terjawab benar, Nailong jatuh dan langsung <strong>GAME OVER</strong>.</div>
             </div>
           </div>
 
@@ -836,23 +836,23 @@
             <div class="guide-icon">❌</div>
             <div>
               <div class="guide-title">Batas Salah Maksimal 3 Kali (Salah ke-3 = Game Over)</div>
-              <div class="guide-desc">Kamu hanya boleh salah maksimal <strong>3 kali</strong> sepanjang sesi. Pada kesalahan ke-3, Nailong jatuh tidak bangun dan muncul layar <strong>GAME OVER</strong>.</div>
+              <div class="guide-desc">Kamu hanya boleh salah maksimal <strong>3 kali</strong>. Pada kesalahan ke-3, Nailong jatuh tidak bangun dan muncul layar <strong>GAME OVER</strong>.</div>
+            </div>
+          </div>
+
+          <div class="guide-item danger">
+            <div class="guide-icon">🚫</div>
+            <div>
+              <div class="guide-title">Anti-Nyontek: Pindah Tab / Keluar = Game Over</div>
+              <div class="guide-desc">Jangan membuka tab lain, Google Lens, atau AI di HP saat mengerjakan. Begitu keluar/pindah tab, langsung <strong>GAME OVER</strong>!</div>
             </div>
           </div>
 
           <div class="guide-item">
             <div class="guide-icon">🔒</div>
             <div>
-              <div class="guide-title">1x Kesempatan per Nomor &amp; Kirim Jawaban</div>
-              <div class="guide-desc">Setiap nomor terkunci setelah dijawab agar tidak bisa diubah ulang. Pada soal PG Kompleks &amp; Benar–Salah, klik <strong>Kirim Jawaban</strong> untuk melihat hasil dan pembahasan.</div>
-            </div>
-          </div>
-
-          <div class="guide-item">
-            <div class="guide-icon">🏆</div>
-            <div>
-              <div class="guide-title">Langkahkan Nailong ke Finish &amp; Rekap Otomatis</div>
-              <div class="guide-desc">Tiap jawaban benar membuat Nailong melompat dan melangkah menuju <strong>Trophy (20/20)</strong>. Nama, kelas, jumlah percobaan, dan nilai tercatat otomatis ke rekap guru.</div>
+              <div class="guide-title">1x Kesempatan per Nomor &amp; Rekap Otomatis</div>
+              <div class="guide-desc">Tiap nomor terkunci setelah dijawab; pada PG Kompleks &amp; Benar–Salah klik <strong>Kirim Jawaban</strong>. Tiap jawaban benar melangkahkan Nailong ke <strong>Trophy (20/20)</strong> dan tercatat ke Google Sheets.</div>
             </div>
           </div>
         </div>
@@ -993,6 +993,7 @@
   </div>
 
   <script>
+    // TEMPEL URL WEB APP GOOGLE APPS SCRIPT BOS RINA DI SINI:
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwTwLPx55r8oQD51Ezr9lMIbqBe9n4LRyTvkI2R1fnbf_ePKA3GMe94ZGtKnSvyYbSSlQ/exec";
 
     const QUESTION_SECONDS = 180;
@@ -1186,6 +1187,7 @@
     let timeLeft = QUESTION_SECONDS;
     let timerInterval = null;
     let isGameOver = false;
+    let cheatTriggered = false;
     let joyTimer = null;
 
     function getAudioCtx() {
@@ -1303,6 +1305,33 @@
         }
       }, 1000);
     }
+
+    /* ================= ANTI-NYONTEK: PINDAH TAB / KELUAR HALAMAN ================= */
+    function handleTabSwitchAntiCheat() {
+      const readerVisible = document.getElementById("readerPage").style.display === "flex";
+      if (!readerVisible || isGameOver || cheatTriggered) return;
+
+      cheatTriggered = true;
+      clearInterval(timerInterval);
+      triggerGameOver(
+        "Terdeteksi pindah tab atau keluar dari halaman soal! Demi kejujuran latihan, langsung GAME OVER.",
+        "GAME OVER (Pindah Tab / Keluar Halaman)"
+      );
+    }
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        handleTabSwitchAntiCheat();
+      }
+    });
+
+    window.addEventListener("blur", function () {
+      setTimeout(() => {
+        if (document.hasFocus && !document.hasFocus()) {
+          handleTabSwitchAntiCheat();
+        }
+      }, 150);
+    });
 
     function updateNailongPosition(correctSteps, mode = "idle") {
       if (isGameOver) return;
@@ -1634,6 +1663,7 @@
       clearInterval(timerInterval);
       clearTimeout(joyTimer);
       isGameOver = false;
+      cheatTriggered = false;
       currentIdx = 0;
       wrongCount = 0;
       xp = 0;
