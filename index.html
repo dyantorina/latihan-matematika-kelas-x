@@ -170,6 +170,75 @@
       box-shadow: 0 8px 20px rgba(245, 158, 11, 0.45);
     }
 
+    /* ================= GUIDE / RULES PAGE ================= */
+    .guide-page {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px 15px 18px;
+      background: linear-gradient(180deg, #eff6ff 0%, #f8fafc 100%);
+    }
+    .guide-header {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .guide-header h2 {
+      margin: 4px 0 4px;
+      font-size: 1.28rem;
+      font-weight: 900;
+      color: #1e3a8a;
+    }
+    .guide-header p {
+      margin: 0;
+      font-size: 0.82rem;
+      color: #475569;
+      font-weight: 600;
+    }
+    .guide-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 14px;
+    }
+    .guide-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 13px;
+      padding: 10px 12px;
+      box-shadow: 0 3px 10px rgba(15, 23, 42, 0.03);
+    }
+    .guide-item.danger {
+      border-color: #fca5a5;
+      background: #fff5f5;
+    }
+    .guide-icon {
+      font-size: 1.25rem;
+      line-height: 1.1;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .guide-title {
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 2px;
+    }
+    .guide-item.danger .guide-title { color: #991b1b; }
+    .guide-desc {
+      font-size: 0.79rem;
+      color: #475569;
+      line-height: 1.42;
+    }
+    .guide-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
     /* ================= READER PAGE ================= */
     .reader-page {
       display: none;
@@ -356,7 +425,6 @@
     .frac > span:last-child { padding: 1px 3px 0; }
     sup { font-size: 0.72em; line-height: 0; }
 
-    /* Single Choice Card (Tipe A) */
     .opt-card {
       display: flex;
       align-items: center;
@@ -391,7 +459,6 @@
     .opt-card.opt-bad { background: var(--bad-bg); border-color: var(--bad-border); color: #7f1d1d; opacity: 1; }
     .opt-card.opt-bad .opt-letter { background: #dc2626; color: #fff; }
 
-    /* Multi-select Checkbox Card (Tipe B) */
     .chk-card {
       display: flex;
       align-items: flex-start;
@@ -427,7 +494,6 @@
     .chk-card.locked-ok .chk-box { background: #16a34a; border-color: #16a34a; color: #fff; }
     .chk-card.locked-bad .chk-box { background: #dc2626; border-color: #dc2626; color: #fff; }
 
-    /* True / False Rows (Tipe C) */
     .tf-row {
       display: flex;
       justify-content: space-between;
@@ -468,10 +534,7 @@
       font-weight: 800;
       cursor: pointer;
     }
-    .btn-check-multi:disabled {
-      background: #94a3b8;
-      cursor: default;
-    }
+    .btn-check-multi:disabled { background: #94a3b8; cursor: default; }
 
     .inline-warn {
       display: none;
@@ -691,7 +754,7 @@
 
   <div class="mobile-shell">
 
-    <!-- HALAMAN SAMPUL -->
+    <!-- HALAMAN 1: SAMPUL & IDENTITAS -->
     <section class="cover-page" id="coverPage">
       <div>
         <span class="pill-badge">🦖 Latihan Mandiri • Matematika SMK</span>
@@ -719,12 +782,12 @@
         </div>
         <h1 class="cover-title">Antar Nailong ke Garis <span>Finish 🏆</span></h1>
         <p class="cover-desc">
-          Tiap nomor hanya <strong>1x kesempatan jawab</strong> (anti nyontek ulang!). Selesaikan <strong>20 Soal</strong> sampai garis finish!
+          Isi Nama &amp; Kelasmu dulu, baca petunjuk aturan main, lalu selesaikan <strong>20 Soal</strong> sampai meraih Trophy!
         </p>
         <div class="rule-pills">
           <span class="rule-pill">⏱️ 3 Menit / Soal</span>
-          <span class="rule-pill">🔒 1x Jawab / Nomor</span>
           <span class="rule-pill">❌ Maks. 3x Salah</span>
+          <span class="rule-pill">🏆 20 Langkah = Trophy</span>
         </div>
       </div>
 
@@ -747,16 +810,67 @@
 
           <div class="form-error" id="formError">⚠️ Isi Nama Lengkap dan pilih Kelas terlebih dahulu ya!</div>
         </div>
-        <button class="btn-start" onclick="validasiDanMulai()">🚀 Mulai Mengerjakan (20 Soal) →</button>
+        <button class="btn-start" onclick="bukaHalamanPetunjuk()">Lanjut ke Petunjuk &amp; Aturan →</button>
       </div>
     </section>
 
-    <!-- HALAMAN SOAL -->
+    <!-- HALAMAN 2: PETUNJUK PENGERJAAN & ATURAN MAIN -->
+    <section class="guide-page" id="guidePage">
+      <div>
+        <div class="guide-header">
+          <span class="pill-badge">📋 Petunjuk Pengerjaan &amp; Aturan</span>
+          <h2>Baca Aturan Sebelum Mulai!</h2>
+          <p id="guideStudentGreeting">Persiapan latihan mandiri ASAS Matematika Kelas X</p>
+        </div>
+
+        <div class="guide-list">
+          <div class="guide-item danger">
+            <div class="guide-icon">⏱️</div>
+            <div>
+              <div class="guide-title">Waktu 3 Menit per Soal (Habis = Langsung Game Over)</div>
+              <div class="guide-desc">Setiap soal diberi waktu <strong>03:00 menit</strong>. Jika waktu habis sebelum soal terjawab benar, Nailong langsung jatuh dan permainan <strong>GAME OVER</strong>.</div>
+            </div>
+          </div>
+
+          <div class="guide-item danger">
+            <div class="guide-icon">❌</div>
+            <div>
+              <div class="guide-title">Batas Salah Maksimal 3 Kali (Salah ke-3 = Game Over)</div>
+              <div class="guide-desc">Kamu hanya boleh salah maksimal <strong>3 kali</strong> sepanjang sesi. Pada kesalahan ke-3, Nailong jatuh tidak bangun dan muncul layar <strong>GAME OVER</strong>.</div>
+            </div>
+          </div>
+
+          <div class="guide-item">
+            <div class="guide-icon">🔒</div>
+            <div>
+              <div class="guide-title">1x Kesempatan per Nomor &amp; Kirim Jawaban</div>
+              <div class="guide-desc">Setiap nomor terkunci setelah dijawab agar tidak bisa diubah ulang. Pada soal PG Kompleks &amp; Benar–Salah, klik <strong>Kirim Jawaban</strong> untuk melihat hasil dan pembahasan.</div>
+            </div>
+          </div>
+
+          <div class="guide-item">
+            <div class="guide-icon">🏆</div>
+            <div>
+              <div class="guide-title">Langkahkan Nailong ke Finish &amp; Rekap Otomatis</div>
+              <div class="guide-desc">Tiap jawaban benar membuat Nailong melompat dan melangkah menuju <strong>Trophy (20/20)</strong>. Nama, kelas, jumlah percobaan, dan nilai tercatat otomatis ke rekap guru.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-actions">
+        <button class="btn-start" onclick="mulaiTantangan()">✅ Saya Mengerti &amp; Mulai Soal 1 →</button>
+        <button class="btn-nav btn-prev" onclick="keSampul()">← Kembali ke Nama &amp; Kelas</button>
+      </div>
+    </section>
+
+    <!-- HALAMAN 3: HALAMAN SOAL -->
     <section class="reader-page" id="readerPage">
       <div>
         <div class="hud-bar">
           <div class="hud-left">
-            <button class="btn-hud" onclick="keSampul()">🏠</button>
+            <button class="btn-hud" onclick="bukaHalamanPetunjuk()" title="Petunjuk">📋</button>
+            <button class="btn-hud" onclick="keSampul()" title="Sampul">🏠</button>
             <span class="hud-chip chip-timer" id="timerBadge">⏱️ 03:00</span>
             <span class="hud-chip chip-wrong" id="wrongBadge">❌ 0/3</span>
             <span class="hud-chip chip-xp" id="xpBadge">⭐ 0</span>
@@ -1168,7 +1282,6 @@
       clearInterval(timerInterval);
       if (isGameOver) return;
 
-      // Jika nomor ini sudah dikunci/dijawab, timer tidak berjalan lagi di nomor ini
       if (soalLocked[currentIdx]) {
         updateTimerUI();
         return;
@@ -1242,6 +1355,7 @@
 
       setTimeout(() => {
         document.getElementById("readerPage").style.display = "none";
+        document.getElementById("guidePage").style.display = "none";
         document.getElementById("summaryPage").style.display = "none";
         document.getElementById("gameoverPage").style.display = "flex";
         document.getElementById("koReason").textContent = reasonText;
@@ -1492,7 +1606,7 @@
     let soalLocked = Array(soalData.length).fill(false);
     let soalSolvedCorrectly = Array(soalData.length).fill(false);
 
-    function validasiDanMulai() {
+    function bukaHalamanPetunjuk() {
       const nama = document.getElementById("inputNama").value.trim();
       const kelas = document.getElementById("inputJurusan").value.trim();
       const errBox = document.getElementById("formError");
@@ -1502,8 +1616,17 @@
         playWrong();
         return;
       }
+
       errBox.style.display = "none";
-      mulaiTantangan();
+      clearInterval(timerInterval);
+      playFlip();
+
+      document.getElementById("guideStudentGreeting").textContent = `${nama} • Kelas ${kelas}`;
+      document.getElementById("coverPage").style.display = "none";
+      document.getElementById("readerPage").style.display = "none";
+      document.getElementById("gameoverPage").style.display = "none";
+      document.getElementById("summaryPage").style.display = "none";
+      document.getElementById("guidePage").style.display = "flex";
     }
 
     function mulaiTantangan() {
@@ -1521,6 +1644,7 @@
       document.getElementById("nailongTrack").classList.remove("track-ko");
       document.getElementById("motivationBanner").textContent = "✨ Tiap nomor hanya 1x kesempatan jawab! Ayo raih Trophy!";
       document.getElementById("coverPage").style.display = "none";
+      document.getElementById("guidePage").style.display = "none";
       document.getElementById("gameoverPage").style.display = "none";
       document.getElementById("summaryPage").style.display = "none";
       document.getElementById("readerPage").style.display = "flex";
@@ -1533,6 +1657,7 @@
     function keSampul() {
       playFlip();
       clearInterval(timerInterval);
+      document.getElementById("guidePage").style.display = "none";
       document.getElementById("readerPage").style.display = "none";
       document.getElementById("gameoverPage").style.display = "none";
       document.getElementById("summaryPage").style.display = "none";
@@ -1839,3 +1964,5 @@
   </script>
 </body>
 </html>
+
+    
