@@ -1,0 +1,1996 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Latihan ASAS Matematika Kelas X — Nailong Quest</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e3a8a;
+      --ok: #15803d;
+      --ok-bg: #dcfce7;
+      --ok-border: #22c55e;
+      --bad: #b91c1c;
+      --bad-bg: #fee2e2;
+      --bad-border: #ef4444;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #cbd5e1;
+    }
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background: #0f172a;
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+    }
+
+    #confettiCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .mobile-shell {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100dvh;
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.55);
+      overflow-x: hidden;
+    }
+
+    /* ================= COVER PAGE ================= */
+    .cover-page {
+      flex: 1;
+      background: linear-gradient(165deg, #1e1b4b 0%, #1d4ed8 55%, #0284c7 100%);
+      color: #fff;
+      padding: 24px 18px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+    }
+    .pill-badge {
+      display: inline-block;
+      background: #fbbf24;
+      color: #451a03;
+      font-weight: 800;
+      font-size: 0.72rem;
+      padding: 5px 12px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 8px;
+    }
+    .mascot-hero {
+      margin: 4px auto 8px;
+      width: 102px;
+      height: 102px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: floatHero 2.5s ease-in-out infinite alternate;
+    }
+    @keyframes floatHero {
+      from { transform: translateY(0px); }
+      to { transform: translateY(-6px); }
+    }
+    .cover-title {
+      font-size: 1.44rem;
+      font-weight: 900;
+      line-height: 1.2;
+      margin: 0 0 6px;
+    }
+    .cover-title span { color: #fde047; }
+    .cover-desc {
+      margin: 0 auto 10px;
+      font-size: 0.83rem;
+      opacity: 0.94;
+      line-height: 1.45;
+    }
+    .rule-pills {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .rule-pill {
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+    .student-form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.36);
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      margin-bottom: 12px;
+      text-align: left;
+    }
+    .student-form label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fde68a;
+      margin-bottom: -4px;
+    }
+    .student-form input, .student-form select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: none;
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .form-error {
+      display: none;
+      background: #fee2e2;
+      color: #991b1b;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .btn-start {
+      width: 100%;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #451a03;
+      border: none;
+      border-radius: 14px;
+      padding: 13px 18px;
+      font-size: 0.98rem;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.45);
+    }
+
+    /* ================= GUIDE / RULES PAGE ================= */
+    .guide-page {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px 14px 16px;
+      background: linear-gradient(180deg, #eff6ff 0%, #f8fafc 100%);
+    }
+    .guide-header {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .guide-header h2 {
+      margin: 4px 0 3px;
+      font-size: 1.24rem;
+      font-weight: 900;
+      color: #1e3a8a;
+    }
+    .guide-header p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: #475569;
+      font-weight: 600;
+    }
+    .guide-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .guide-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 9px 11px;
+      box-shadow: 0 3px 10px rgba(15, 23, 42, 0.03);
+    }
+    .guide-item.danger {
+      border-color: #fca5a5;
+      background: #fff5f5;
+    }
+    .guide-icon {
+      font-size: 1.18rem;
+      line-height: 1.1;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .guide-title {
+      font-size: 0.83rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 2px;
+    }
+    .guide-item.danger .guide-title { color: #991b1b; }
+    .guide-desc {
+      font-size: 0.77rem;
+      color: #475569;
+      line-height: 1.38;
+    }
+    .guide-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* ================= READER PAGE ================= */
+    .reader-page {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 10px 12px 12px;
+    }
+
+    .hud-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 5px;
+      background: #ffffff;
+      padding: 7px 9px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 7px;
+    }
+    .hud-left, .hud-right { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+    .hud-chip {
+      padding: 4px 7px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .chip-timer { background: #e0f2fe; color: #0369a1; border: 1px solid #7dd3fc; }
+    .chip-timer.urgent { background: #fee2e2; color: #b91c1c; border-color: #f87171; animation: pulseTimer 0.7s infinite alternate; }
+    @keyframes pulseTimer {
+      from { transform: scale(1); }
+      to { transform: scale(1.05); }
+    }
+    .chip-wrong { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+    .chip-xp { background: #fef3c7; color: #92400e; }
+    .btn-hud {
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #0f172a;
+      border-radius: 8px;
+      padding: 4px 7px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 7px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2563eb, #06b6d4, #fbbf24);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .page-dots {
+      display: flex;
+      gap: 5px;
+      overflow-x: auto;
+      padding-bottom: 5px;
+      margin-bottom: 7px;
+      scrollbar-width: none;
+    }
+    .page-dots::-webkit-scrollbar { display: none; }
+    .dot-btn {
+      flex: 0 0 29px;
+      height: 29px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background: #fff;
+      font-weight: 800;
+      font-size: 0.75rem;
+      cursor: pointer;
+      color: #475569;
+    }
+    .dot-btn.active { border-color: #2563eb; background: #dbeafe; color: #1d4ed8; }
+    .dot-btn.done-ok { background: #dcfce7; border-color: #22c55e; color: #15803d; }
+    .dot-btn.done-bad { background: #fee2e2; border-color: #ef4444; color: #b91c1c; }
+
+    .question-box {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 13px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+      animation: slideIn 0.2s ease;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(8px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .q-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 7px;
+    }
+    .topic-pill {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #1d4ed8;
+      background: #dbeafe;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+    .btn-hint {
+      background: #fef9c3;
+      border: 1px solid #facc15;
+      color: #854d0e;
+      font-weight: 800;
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .hint-box {
+      display: none;
+      background: #fffbeb;
+      border: 1px dashed #f59e0b;
+      color: #78350f;
+      padding: 7px 10px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      margin-bottom: 9px;
+      line-height: 1.4;
+    }
+    .q-text {
+      font-size: 0.93rem;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 9px;
+      color: #0f172a;
+    }
+    .context-box {
+      background: #f1f5f9;
+      border-left: 3.5px solid #2563eb;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      margin-bottom: 10px;
+      color: #1e293b;
+    }
+    .formula-block {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 6px 8px;
+      margin: 6px 0;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+
+    .graph-wrap {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 8px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .graph-wrap svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    .graph-caption { font-size: 0.72rem; color: #64748b; font-weight: 700; margin-top: 4px; }
+
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 2px;
+      font-size: 0.88em;
+      line-height: 1.1;
+    }
+    .frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 3px 1px; }
+    .frac > span:last-child { padding: 1px 3px 0; }
+    sup { font-size: 0.72em; line-height: 0; }
+
+    .opt-card {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 11px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 11px;
+      margin-bottom: 7px;
+      cursor: pointer;
+      background: #fff;
+      font-size: 0.88rem;
+      line-height: 1.35;
+      transition: transform 0.1s ease, border-color 0.15s, background 0.15s;
+    }
+    .opt-card.locked { cursor: default; opacity: 0.92; }
+    .opt-card:not(.locked):active { transform: scale(0.98); }
+    .opt-letter {
+      width: 25px;
+      height: 25px;
+      border-radius: 7px;
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 800;
+      font-size: 0.78rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .opt-card.opt-ok { background: var(--ok-bg); border-color: var(--ok-border); color: #14532d; font-weight: 700; opacity: 1; }
+    .opt-card.opt-ok .opt-letter { background: #16a34a; color: #fff; }
+    .opt-card.opt-bad { background: var(--bad-bg); border-color: var(--bad-border); color: #7f1d1d; opacity: 1; }
+    .opt-card.opt-bad .opt-letter { background: #dc2626; color: #fff; }
+
+    .chk-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 8px 10px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 11px;
+      margin-bottom: 7px;
+      cursor: pointer;
+      background: #fff;
+      font-size: 0.85rem;
+      line-height: 1.35;
+    }
+    .chk-card.locked { cursor: default; }
+    .chk-card.selected { border-color: #2563eb; background: #eff6ff; font-weight: 600; }
+    .chk-card.locked-ok { border-color: var(--ok-border); background: var(--ok-bg); color: #14532d; font-weight: 700; }
+    .chk-card.locked-bad { border-color: var(--bad-border); background: var(--bad-bg); color: #7f1d1d; }
+    .chk-box {
+      width: 21px;
+      height: 21px;
+      border-radius: 6px;
+      border: 2px solid #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 900;
+      flex-shrink: 0;
+      margin-top: 1px;
+      background: #fff;
+    }
+    .chk-card.selected .chk-box { background: #2563eb; border-color: #2563eb; color: #fff; }
+    .chk-card.locked-ok .chk-box { background: #16a34a; border-color: #16a34a; color: #fff; }
+    .chk-card.locked-bad .chk-box { background: #dc2626; border-color: #dc2626; color: #fff; }
+
+    .tf-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 11px;
+      margin-bottom: 7px;
+      background: #fff;
+      font-size: 0.85rem;
+    }
+    .tf-stmt { flex: 1; font-weight: 600; line-height: 1.35; }
+    .tf-btns { display: flex; gap: 5px; flex-shrink: 0; }
+    .tf-btn {
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+      color: #334155;
+      border-radius: 8px;
+      padding: 5px 9px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .tf-btn:disabled { cursor: default; opacity: 0.85; }
+    .tf-btn.active-b { background: #16a34a; border-color: #16a34a; color: #fff; opacity: 1; }
+    .tf-btn.active-s { background: #dc2626; border-color: #dc2626; color: #fff; opacity: 1; }
+
+    .btn-check-multi {
+      width: 100%;
+      margin-top: 4px;
+      background: linear-gradient(135deg, #0284c7, #1d4ed8);
+      color: #fff;
+      border: none;
+      border-radius: 11px;
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .btn-check-multi:disabled { background: #94a3b8; cursor: default; }
+
+    .inline-warn {
+      display: none;
+      margin-top: 6px;
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+      color: #92400e;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .feedback {
+      margin-top: 8px;
+      padding: 9px 11px;
+      border-radius: 11px;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      display: none;
+    }
+    .feedback.ok { display: block; background: var(--ok-bg); color: #14532d; border: 1px solid var(--ok-border); }
+    .feedback.bad { display: block; background: var(--bad-bg); color: #7f1d1d; border: 1px solid var(--bad-border); }
+    .fb-title { font-weight: 800; display: block; margin-bottom: 2px; }
+
+    /* ================= NAILONG STEP TRACK & MOTIVATION ================= */
+    .motivation-banner {
+      margin-top: 8px;
+      background: linear-gradient(90deg, #fef9c3, #ffedd5);
+      border: 1.5px solid #f59e0b;
+      color: #78350f;
+      border-radius: 11px;
+      padding: 6px 10px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-align: center;
+      min-height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nailong-track {
+      position: relative;
+      height: 74px;
+      margin-top: 6px;
+      background: linear-gradient(180deg, #e0f2fe 0%, #bae6fd 72%, #86efac 73%, #22c55e 100%);
+      border-radius: 14px;
+      border: 1.5px solid #93c5fd;
+      overflow: hidden;
+    }
+    .nailong-track.track-ko {
+      background: linear-gradient(180deg, #fee2e2 0%, #fecaca 72%, #cbd5e1 73%, #94a3b8 100%);
+      border-color: #fca5a5;
+    }
+    .step-info-bar {
+      position: absolute;
+      top: 4px;
+      left: 9px;
+      right: 36px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #1e3a8a;
+    }
+    .finish-flag {
+      position: absolute;
+      right: 8px;
+      bottom: 6px;
+      font-size: 1.45rem;
+      line-height: 1;
+      z-index: 2;
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
+    }
+    .finish-flag.won { animation: trophyPop 0.6s ease infinite alternate; }
+    @keyframes trophyPop {
+      from { transform: scale(1) rotate(-6deg); }
+      to { transform: scale(1.22) rotate(8deg); }
+    }
+
+    .nailong-walker {
+      position: absolute;
+      bottom: 4px;
+      left: 2%;
+      transition: left 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 3;
+    }
+    .nailong-sprite {
+      width: 48px;
+      height: 48px;
+      transform-origin: center bottom;
+      transition: transform 0.45s ease;
+    }
+    .nailong-sprite.jump-joy {
+      animation: happyJump 0.36s cubic-bezier(0.28, 0.84, 0.42, 1) 5;
+    }
+    @keyframes happyJump {
+      0%, 100% { transform: translateY(0) scale(1, 1); }
+      30% { transform: translateY(2px) scale(1.14, 0.86); }
+      65% { transform: translateY(-18px) scale(0.94, 1.08); }
+    }
+    .nailong-sprite.oops-shake {
+      animation: oopsWiggle 0.32s ease 2;
+    }
+    @keyframes oopsWiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-12deg); }
+      75% { transform: rotate(12deg); }
+    }
+    .nailong-sprite.fallen-ko {
+      animation: none !important;
+      transform: translateY(5px) rotate(-88deg) !important;
+      opacity: 0.9;
+    }
+
+    .bottom-nav {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .btn-nav {
+      border: none;
+      border-radius: 12px;
+      padding: 11px 14px;
+      font-weight: 800;
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+    .btn-prev { background: #e2e8f0; color: #0f172a; }
+    .btn-prev:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-next { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; }
+    .btn-finish { background: linear-gradient(135deg, #16a34a, #15803d); color: #fff; }
+
+    /* ================= GAME OVER & TROPHY SUMMARY ================= */
+    .gameover-page, .summary-page {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      justify-content: center;
+      padding: 20px 18px;
+      text-align: center;
+    }
+    .gameover-page {
+      background: linear-gradient(180deg, #450a0a 0%, #1e1b4b 100%);
+      color: #fff;
+    }
+    .ko-card {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid #f87171;
+      border-radius: 22px;
+      padding: 20px 16px;
+      margin-bottom: 14px;
+    }
+    .ko-badge {
+      display: inline-block;
+      background: #dc2626;
+      color: #fff;
+      font-size: 0.74rem;
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 999px;
+      letter-spacing: 1px;
+    }
+    .ko-title { font-size: 1.9rem; font-weight: 900; color: #fca5a5; margin: 6px 0; }
+    .nailong-fallen-hero {
+      width: 100px;
+      height: 68px;
+      margin: 6px auto;
+      transform: rotate(-88deg);
+      opacity: 0.92;
+    }
+
+    .summary-page { background: linear-gradient(180deg, #fffbeb 0%, #ffffff 100%); }
+    .trophy-icon {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      margin-bottom: 4px;
+      animation: trophyPop 0.8s ease-in-out infinite alternate;
+    }
+    .cert-card {
+      border: 3px double #f59e0b;
+      border-radius: 20px;
+      padding: 20px 16px;
+      background: #ffffff;
+      box-shadow: 0 10px 26px rgba(245, 158, 11, 0.18);
+      margin-bottom: 14px;
+    }
+    .score-pill {
+      display: inline-block;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff;
+      font-size: 2rem;
+      font-weight: 900;
+      padding: 9px 24px;
+      border-radius: 15px;
+      margin: 8px 0;
+    }
+    .sync-status {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 9px;
+      margin-top: 8px;
+      background: #f1f5f9;
+      color: #334155;
+    }
+    .sync-status.ok { background: #dcfce7; color: #15803d; }
+    .sync-status.err { background: #fee2e2; color: #b91c1c; }
+    .summary-actions { display: flex; flex-direction: column; gap: 8px; }
+  </style>
+</head>
+<body>
+  <canvas id="confettiCanvas"></canvas>
+
+  <div class="mobile-shell">
+
+    <!-- HALAMAN 1: SAMPUL & IDENTITAS -->
+    <section class="cover-page" id="coverPage">
+      <div>
+        <span class="pill-badge">🦖 Latihan Mandiri • Matematika SMK</span>
+        <div class="mascot-hero">
+          <svg width="82" height="82" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+            <path d="M35 102 Q12 95 18 78 Q28 84 42 92 Z" fill="#f59e0b"/>
+            <ellipse cx="55" cy="122" rx="13" ry="8" fill="#d97706"/>
+            <ellipse cx="86" cy="122" rx="13" ry="8" fill="#d97706"/>
+            <ellipse cx="70" cy="92" rx="34" ry="30" fill="#fbbf24"/>
+            <ellipse cx="73" cy="95" rx="22" ry="21" fill="#fef3c7"/>
+            <circle cx="72" cy="52" r="30" fill="#fbbf24"/>
+            <polygon points="52,25 58,12 65,23" fill="#f59e0b"/>
+            <polygon points="67,22 73,8 79,22" fill="#f59e0b"/>
+            <polygon points="81,25 89,14 92,27" fill="#f59e0b"/>
+            <circle cx="61" cy="48" r="5.5" fill="#1e293b"/>
+            <circle cx="84" cy="48" r="5.5" fill="#1e293b"/>
+            <circle cx="63" cy="46" r="2" fill="#ffffff"/>
+            <circle cx="86" cy="46" r="2" fill="#ffffff"/>
+            <ellipse cx="51" cy="56" rx="5.5" ry="3.2" fill="#fb7185" opacity="0.75"/>
+            <ellipse cx="93" cy="56" rx="5.5" ry="3.2" fill="#fb7185" opacity="0.75"/>
+            <path d="M62 59 Q72 71 83 59" stroke="#78350f" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+            <ellipse cx="38" cy="84" rx="10" ry="6" transform="rotate(-25 38 84)" fill="#fbbf24"/>
+            <ellipse cx="103" cy="84" rx="10" ry="6" transform="rotate(25 103 84)" fill="#fbbf24"/>
+          </svg>
+        </div>
+        <h1 class="cover-title">Antar Nailong ke Garis <span>Finish 🏆</span></h1>
+        <p class="cover-desc">
+          Isi Nama &amp; Kelasmu dulu, baca petunjuk aturan main, lalu selesaikan <strong>20 Soal</strong> sampai meraih Trophy!
+        </p>
+        <div class="rule-pills">
+          <span class="rule-pill">⏱️ 3 Menit / Soal</span>
+          <span class="rule-pill">❌ Maks. 3x Salah</span>
+          <span class="rule-pill">🚫 Anti Pindah Tab</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="student-form">
+          <label for="inputNama">Nama Lengkap Murid (Wajib Diisi)</label>
+          <input type="text" id="inputNama" placeholder="Contoh: Ahmad Fauzi" />
+
+          <label for="inputJurusan">Kelas (Wajib Dipilih)</label>
+          <select id="inputJurusan">
+            <option value="">-- Pilih Kelas --</option>
+            <option value="X Mesin 1">X Mesin 1</option>
+            <option value="X Mesin 2">X Mesin 2</option>
+            <option value="X TMI">X TMI</option>
+            <option value="X DGM">X DGM</option>
+            <option value="X Teknik Listrik">X Teknik Listrik</option>
+            <option value="X RPL">X RPL</option>
+            <option value="X Konstruksi / DPIB">X Konstruksi / DPIB</option>
+          </select>
+
+          <div class="form-error" id="formError">⚠️ Isi Nama Lengkap dan pilih Kelas terlebih dahulu ya!</div>
+        </div>
+        <button class="btn-start" onclick="bukaHalamanPetunjuk()">Lanjut ke Petunjuk &amp; Aturan →</button>
+      </div>
+    </section>
+
+    <!-- HALAMAN 2: PETUNJUK PENGERJAAN & ATURAN MAIN -->
+    <section class="guide-page" id="guidePage">
+      <div>
+        <div class="guide-header">
+          <span class="pill-badge">📋 Petunjuk Pengerjaan &amp; Aturan</span>
+          <h2>Baca Aturan Sebelum Mulai!</h2>
+          <p id="guideStudentGreeting">Persiapan latihan mandiri ASAS Matematika Kelas X</p>
+        </div>
+
+        <div class="guide-list">
+          <div class="guide-item danger">
+            <div class="guide-icon">⏱️</div>
+            <div>
+              <div class="guide-title">Waktu 3 Menit per Soal (Habis = Langsung Game Over)</div>
+              <div class="guide-desc">Setiap soal diberi waktu <strong>03:00 menit</strong>. Jika melebihi waktu sebelum terjawab benar, Nailong jatuh dan langsung <strong>GAME OVER</strong>.</div>
+            </div>
+          </div>
+
+          <div class="guide-item danger">
+            <div class="guide-icon">❌</div>
+            <div>
+              <div class="guide-title">Batas Salah Maksimal 3 Kali (Salah ke-3 = Game Over)</div>
+              <div class="guide-desc">Kamu hanya boleh salah maksimal <strong>3 kali</strong>. Pada kesalahan ke-3, Nailong jatuh tidak bangun dan muncul layar <strong>GAME OVER</strong>.</div>
+            </div>
+          </div>
+
+          <div class="guide-item danger">
+            <div class="guide-icon">🚫</div>
+            <div>
+              <div class="guide-title">Anti-Nyontek: Pindah Tab / Keluar = Game Over</div>
+              <div class="guide-desc">Jangan membuka tab lain, Google Lens, atau AI di HP saat mengerjakan. Begitu keluar/pindah tab, langsung <strong>GAME OVER</strong>!</div>
+            </div>
+          </div>
+
+          <div class="guide-item">
+            <div class="guide-icon">🔒</div>
+            <div>
+              <div class="guide-title">1x Kesempatan per Nomor &amp; Rekap Otomatis</div>
+              <div class="guide-desc">Tiap nomor terkunci setelah dijawab; pada PG Kompleks &amp; Benar–Salah klik <strong>Kirim Jawaban</strong>. Tiap jawaban benar melangkahkan Nailong ke <strong>Trophy (20/20)</strong> dan tercatat ke Google Sheets.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-actions">
+        <button class="btn-start" onclick="mulaiTantangan()">✅ Saya Mengerti &amp; Mulai Soal 1 →</button>
+        <button class="btn-nav btn-prev" onclick="keSampul()">← Kembali ke Nama &amp; Kelas</button>
+      </div>
+    </section>
+
+    <!-- HALAMAN 3: HALAMAN SOAL -->
+    <section class="reader-page" id="readerPage">
+      <div>
+        <div class="hud-bar">
+          <div class="hud-left">
+            <button class="btn-hud" onclick="bukaHalamanPetunjuk()" title="Petunjuk">📋</button>
+            <button class="btn-hud" onclick="keSampul()" title="Sampul">🏠</button>
+            <span class="hud-chip chip-timer" id="timerBadge">⏱️ 03:00</span>
+            <span class="hud-chip chip-wrong" id="wrongBadge">❌ 0/3</span>
+            <span class="hud-chip chip-xp" id="xpBadge">⭐ 0</span>
+          </div>
+          <div class="hud-right">
+            <button class="btn-hud" id="soundToggle" onclick="toggleSound()">🔊</button>
+            <button class="btn-hud" onclick="mulaiTantangan()">↻</button>
+          </div>
+        </div>
+
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="page-dots" id="pageDots"></div>
+
+        <div class="question-box" id="qStage"></div>
+      </div>
+
+      <div>
+        <div class="motivation-banner" id="motivationBanner">
+          ✨ Jawab benar tiap soal agar Nailong melangkah maju menuju Trophy!
+        </div>
+
+        <div class="nailong-track" id="nailongTrack">
+          <div class="step-info-bar">
+            <span id="stepCounterText">Langkah: 0 / 20</span>
+            <span id="pageCounterText">Hal. 1/20</span>
+          </div>
+
+          <div class="nailong-walker" id="nailongWalker">
+            <svg class="nailong-sprite" id="nailongSprite" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+              <path d="M35 102 Q12 95 18 78 Q28 84 42 92 Z" fill="#f59e0b"/>
+              <ellipse cx="55" cy="122" rx="13" ry="8" fill="#d97706"/>
+              <ellipse cx="86" cy="122" rx="13" ry="8" fill="#d97706"/>
+              <ellipse cx="70" cy="92" rx="34" ry="30" fill="#fbbf24"/>
+              <ellipse cx="73" cy="95" rx="22" ry="21" fill="#fef3c7"/>
+              <circle cx="72" cy="52" r="30" fill="#fbbf24"/>
+              <polygon points="52,25 58,12 65,23" fill="#f59e0b"/>
+              <polygon points="67,22 73,8 79,22" fill="#f59e0b"/>
+              <polygon points="81,25 89,14 92,27" fill="#f59e0b"/>
+              <circle cx="61" cy="48" r="5.5" fill="#1e293b"/>
+              <circle cx="84" cy="48" r="5.5" fill="#1e293b"/>
+              <circle cx="63" cy="46" r="2" fill="#ffffff"/>
+              <circle cx="86" cy="46" r="2" fill="#ffffff"/>
+              <ellipse cx="51" cy="56" rx="5.5" ry="3.2" fill="#fb7185" opacity="0.75"/>
+              <ellipse cx="93" cy="56" rx="5.5" ry="3.2" fill="#fb7185" opacity="0.75"/>
+              <path d="M62 59 Q72 71 83 59" stroke="#78350f" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+              <ellipse cx="38" cy="84" rx="10" ry="6" transform="rotate(-25 38 84)" fill="#fbbf24"/>
+              <ellipse cx="103" cy="84" rx="10" ry="6" transform="rotate(25 103 84)" fill="#fbbf24"/>
+            </svg>
+          </div>
+
+          <div class="finish-flag" id="finishFlag">🏁</div>
+        </div>
+
+        <div class="bottom-nav">
+          <button class="btn-nav btn-prev" id="btnPrev" onclick="gantiHalaman(-1)">← Sebelumnya</button>
+          <button class="btn-nav btn-next" id="btnNext" onclick="gantiHalaman(1)">Selanjutnya →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- HALAMAN GAME OVER -->
+    <section class="gameover-page" id="gameoverPage">
+      <div class="ko-card">
+        <span class="ko-badge">TANTANGAN BERAKHIR</span>
+        <div class="ko-title">GAME OVER</div>
+        <p id="koReason" style="margin:4px 0 10px; font-size:0.9rem; color:#fecaca; font-weight:700;"></p>
+
+        <svg class="nailong-fallen-hero" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+          <path d="M35 102 Q12 95 18 78 Q28 84 42 92 Z" fill="#f59e0b"/>
+          <ellipse cx="55" cy="122" rx="13" ry="8" fill="#d97706"/>
+          <ellipse cx="86" cy="122" rx="13" ry="8" fill="#d97706"/>
+          <ellipse cx="70" cy="92" rx="34" ry="30" fill="#fbbf24"/>
+          <ellipse cx="73" cy="95" rx="22" ry="21" fill="#fef3c7"/>
+          <circle cx="72" cy="52" r="30" fill="#fbbf24"/>
+          <polygon points="52,25 58,12 65,23" fill="#f59e0b"/>
+          <polygon points="67,22 73,8 79,22" fill="#f59e0b"/>
+          <polygon points="81,25 89,14 92,27" fill="#f59e0b"/>
+          <path d="M57 44 L65 52 M65 44 L57 52" stroke="#1e293b" stroke-width="2.8" stroke-linecap="round"/>
+          <path d="M80 44 L88 52 M88 44 L80 52" stroke="#1e293b" stroke-width="2.8" stroke-linecap="round"/>
+          <path d="M64 63 Q72 57 80 63" stroke="#78350f" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <ellipse cx="38" cy="84" rx="10" ry="6" transform="rotate(-25 38 84)" fill="#fbbf24"/>
+          <ellipse cx="103" cy="84" rx="10" ry="6" transform="rotate(25 103 84)" fill="#fbbf24"/>
+        </svg>
+
+        <p style="margin:6px 0 0; font-size:0.85rem; opacity:0.9;">
+          Nailong terjatuh dan tidak bangun. Percobaan ini sudah dicatat—yuk ulangi sampai mencapai Finish!
+        </p>
+        <div class="sync-status" id="koSyncStatus">⏳ Menyimpan progres percobaan ke rekapan guru...</div>
+      </div>
+
+      <div class="summary-actions">
+        <button class="btn-start" onclick="mulaiTantangan()">↻ Coba Lagi dari Awal</button>
+        <button class="btn-nav btn-prev" onclick="keSampul()">🏠 Ganti Nama / Kelas</button>
+      </div>
+    </section>
+
+    <!-- HALAMAN TROPHY & NILAI AKHIR -->
+    <section class="summary-page" id="summaryPage">
+      <div class="cert-card">
+        <div class="trophy-icon">🏆</div>
+        <span class="pill-badge">GARIS FINISH TERCAPAI!</span>
+        <h2 id="certStudentName" style="margin:6px 0 2px; font-size:1.25rem; color:#1e3a8a;">Sobat Vokasi Hebat</h2>
+        <p id="certStudentClass" style="margin:0; color:#64748b; font-weight:700; font-size:0.84rem;"></p>
+        <div class="score-pill" id="finalScore">0</div>
+        <p id="finalTitle" style="font-weight:800; font-size:1rem; margin:6px 0;"></p>
+        <p id="finalDesc" style="margin:0 auto; color:#475569; font-size:0.88rem; line-height:1.5;"></p>
+        <div class="sync-status" id="finishSyncStatus">⏳ Mengirim hasil ke Google Sheets Bu Rina...</div>
+      </div>
+
+      <div class="summary-actions">
+        <button class="btn-nav btn-next" onclick="lihatReview()">🔍 Cek Ulang Pembahasan</button>
+        <button class="btn-nav btn-prev" onclick="mulaiTantangan()">↻ Ulangi Tantangan</button>
+        <button class="btn-nav btn-prev" onclick="keSampul()">🏠 Ke Sampul</button>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // TEMPEL URL WEB APP GOOGLE APPS SCRIPT BOS RINA DI SINI:
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwTwLPx55r8oQD51Ezr9lMIbqBe9n4LRyTvkI2R1fnbf_ePKA3GMe94ZGtKnSvyYbSSlQ/exec";
+
+    const QUESTION_SECONDS = 180;
+    const MAX_WRONG = 3;
+
+    const motivasiBenar = [
+      "🔥 Keren! Satu langkah lagi makin dekat ke Trophy!",
+      "⚡ Mantap jiwa! Logika matematikamu makin tajam!",
+      "🌟 Hebat banget! Nailong lompat kegirangan melihat jawabanmu!",
+      "🚀 Teruskan ritmenya! Garis finish makin dekat!",
+      "💪 Luar biasa! Kamu membuktikan soal SMK bisa ditaklukkan!"
+    ];
+
+    async function kirimKeGoogleSheet(statusText, targetElementId) {
+      const statusEl = document.getElementById(targetElementId);
+      const nama = document.getElementById("inputNama").value.trim();
+      const kelas = document.getElementById("inputJurusan").value.trim();
+      const totalBenar = getCorrectTotal();
+      const nilai = Math.round((totalBenar / soalData.length) * 100);
+
+      if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_URL")) {
+        statusEl.className = "sync-status err";
+        statusEl.textContent = "⚠️ URL Google Apps Script belum dipasang di kode HTML.";
+        return;
+      }
+
+      statusEl.className = "sync-status";
+      statusEl.textContent = "⏳ Mengirim hasil ke rekapan guru...";
+
+      const payload = {
+        nama: nama,
+        kelas: kelas,
+        status: statusText,
+        benar: totalBenar,
+        total: soalData.length,
+        nilai: nilai,
+        xp: xp
+      };
+
+      try {
+        const res = await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        const json = await res.json();
+        if (json.result === "success") {
+          statusEl.className = "sync-status ok";
+          statusEl.textContent = `✅ Tercatat di Google Sheets! (Percobaan ke-${json.attempt})`;
+        } else {
+          throw new Error(json.message || "Gagal menyimpan");
+        }
+      } catch (e) {
+        statusEl.className = "sync-status err";
+        statusEl.textContent = "⚠️ Gagal terhubung ke server, cek koneksi internet.";
+      }
+    }
+
+    const svgIlustrasi5 = `
+      <div class="graph-wrap">
+        <svg width="260" height="145" viewBox="0 0 260 145" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="34" width="95" height="72" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+          <rect x="22" y="62" width="91" height="42" rx="4" fill="#94a3b8" fill-opacity="0.55"/>
+          <text x="67" y="52" text-anchor="middle" font-size="9.5" font-weight="800" fill="#0369a1">Bak Adukan</text>
+          <text x="67" y="86" text-anchor="middle" font-size="9.5" font-weight="800" fill="#0f172a">2⁵ × 3⁴ liter</text>
+          <line x1="122" y1="70" x2="148" y2="70" stroke="#f59e0b" stroke-width="2.5"/>
+          <polygon points="148,65 157,70 148,75" fill="#f59e0b"/>
+          <polygon points="168,55 215,38 242,48 195,65" fill="#cbd5e1" stroke="#334155" stroke-width="1.5"/>
+          <polygon points="168,55 195,65 195,105 168,95" fill="#94a3b8" stroke="#334155" stroke-width="1.5"/>
+          <polygon points="195,65 242,48 242,88 195,105" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+          <text x="205" y="54" text-anchor="middle" font-size="8.5" font-weight="800" fill="#0f172a">Alas: 2²×3² dm²</text>
+          <text x="218" y="88" text-anchor="middle" font-size="8.5" font-weight="800" fill="#ffffff">t = 2²×3</text>
+          <text x="130" y="132" text-anchor="middle" font-size="9.5" font-weight="800" fill="#1e3a8a">1 dm³ = 1 liter • Berapa balok tercetak?</text>
+        </svg>
+        <div class="graph-caption">Ilustrasi Bak Adukan &amp; Balok Beton (Soal No. 5)</div>
+      </div>
+    `;
+
+    const svgIlustrasi8 = `
+      <div class="graph-wrap">
+        <svg width="260" height="150" viewBox="0 0 260 150" xmlns="http://www.w3.org/2000/svg">
+          <rect x="48" y="30" width="164" height="84" rx="4" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.2"/>
+          <line x1="48" y1="114" x2="212" y2="30" stroke="#dc2626" stroke-width="2.4" stroke-dasharray="5,3"/>
+          <circle cx="48" cy="114" r="3.5" fill="#dc2626"/>
+          <circle cx="212" cy="30" r="3.5" fill="#dc2626"/>
+          <text x="130" y="22" text-anchor="middle" font-size="10" font-weight="800" fill="#1e3a8a">Panjang = 6√2 m</text>
+          <text x="42" y="75" text-anchor="end" font-size="9.5" font-weight="800" fill="#1e3a8a">2√2 m</text>
+          <text x="138" y="68" text-anchor="middle" font-size="10" font-weight="800" fill="#dc2626">Kabel (d) = ?</text>
+          <text x="130" y="135" text-anchor="middle" font-size="9.5" font-weight="700" fill="#475569">Denah Lantai Ruang Bengkel (Siku-siku)</text>
+        </svg>
+        <div class="graph-caption">Ilustrasi Denah &amp; Kabel Diagonal (Soal No. 8)</div>
+      </div>
+    `;
+
+    const svgGrafik11 = `
+      <div class="graph-wrap">
+        <svg width="250" height="190" viewBox="0 0 260 205" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#e2e8f0" stroke-width="1">
+            <line x1="40" y1="20" x2="230" y2="20"/><line x1="40" y1="45" x2="230" y2="45"/>
+            <line x1="40" y1="70" x2="230" y2="70"/><line x1="40" y1="95" x2="230" y2="95"/>
+            <line x1="40" y1="120" x2="230" y2="120"/><line x1="40" y1="145" x2="230" y2="145"/>
+            <line x1="60" y1="15" x2="60" y2="170"/><line x1="80" y1="15" x2="80" y2="170"/>
+            <line x1="100" y1="15" x2="100" y2="170"/><line x1="120" y1="15" x2="120" y2="170"/>
+            <line x1="140" y1="15" x2="140" y2="170"/><line x1="160" y1="15" x2="160" y2="170"/>
+            <line x1="180" y1="15" x2="180" y2="170"/><line x1="200" y1="15" x2="200" y2="170"/>
+          </g>
+          <polygon points="120,120 160,170 200,170" fill="#3b82f6" fill-opacity="0.32" stroke="#1d4ed8" stroke-width="1.5"/>
+          <text x="150" y="160" font-size="10" font-weight="800" fill="#1e3a8a">DP</text>
+          <line x1="40" y1="12" x2="40" y2="185" stroke="#0f172a" stroke-width="2"/>
+          <line x1="25" y1="170" x2="235" y2="170" stroke="#0f172a" stroke-width="2"/>
+          <text x="36" y="10" font-size="10" font-weight="800">Y</text>
+          <text x="238" y="174" font-size="10" font-weight="800">X</text>
+          <line x1="32" y1="10" x2="172" y2="185" stroke="#2563eb" stroke-width="2.3"/>
+          <line x1="24" y1="60" x2="220" y2="182.5" stroke="#0284c7" stroke-width="2.3"/>
+          <circle cx="40" cy="20" r="3" fill="#1d4ed8"/><text x="27" y="24" font-size="10" font-weight="700">6</text>
+          <circle cx="40" cy="70" r="3" fill="#0284c7"/><text x="27" y="74" font-size="10" font-weight="700">4</text>
+          <circle cx="120" cy="120" r="3.2" fill="#dc2626"/><text x="125" y="118" font-size="9" font-weight="700" fill="#dc2626">(4,2)</text>
+          <circle cx="160" cy="170" r="3" fill="#1d4ed8"/><text x="157" y="183" font-size="10" font-weight="700">6</text>
+          <circle cx="200" cy="170" r="3" fill="#0284c7"/><text x="197" y="183" font-size="10" font-weight="700">8</text>
+          <text x="28" y="182" font-size="10" font-weight="700">0</text>
+        </svg>
+        <div class="graph-caption">Grafik Daerah Penyelesaian (DP) Soal No. 11</div>
+      </div>
+    `;
+
+    const svgGrafik13 = `
+      <div class="graph-wrap">
+        <svg width="250" height="190" viewBox="0 0 260 205" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#e2e8f0" stroke-width="1">
+            <line x1="35" y1="31" x2="225" y2="31"/><line x1="35" y1="55" x2="225" y2="55"/>
+            <line x1="35" y1="103" x2="225" y2="103"/><line x1="95" y1="18" x2="95" y2="175"/>
+            <line x1="155" y1="18" x2="155" y2="175"/><line x1="185" y1="18" x2="185" y2="175"/>
+          </g>
+          <polygon points="95,103 155,175 185,175" fill="#16a34a" fill-opacity="0.34" stroke="#15803d" stroke-width="1.5"/>
+          <text x="148" y="167" font-size="9" font-weight="800" fill="#14532d">DP</text>
+          <line x1="35" y1="14" x2="35" y2="190" stroke="#0f172a" stroke-width="2"/>
+          <line x1="20" y1="175" x2="232" y2="175" stroke="#0f172a" stroke-width="2"/>
+          <text x="31" y="11" font-size="10" font-weight="800">Y</text>
+          <text x="235" y="179" font-size="10" font-weight="800">X</text>
+          <line x1="25" y1="19" x2="165" y2="187" stroke="#2563eb" stroke-width="2.2"/>
+          <line x1="20" y1="43" x2="200" y2="187" stroke="#0284c7" stroke-width="2.2"/>
+          <text x="23" y="35" font-size="10" font-weight="700">6</text>
+          <text x="23" y="59" font-size="10" font-weight="700">5</text>
+          <circle cx="95" cy="103" r="3" fill="#dc2626"/><text x="100" y="101" font-size="9" font-weight="700" fill="#dc2626">(2,3)</text>
+          <text x="152" y="188" font-size="10" font-weight="700">4</text>
+          <text x="182" y="188" font-size="10" font-weight="700">5</text>
+          <text x="24" y="187" font-size="10" font-weight="700">0</text>
+        </svg>
+        <div class="graph-caption">Grafik Ilustrasi SPtLDV Soal No. 13</div>
+      </div>
+    `;
+
+    const svgDrone15 = `
+      <div class="graph-wrap">
+        <svg width="250" height="145" viewBox="0 0 260 150" xmlns="http://www.w3.org/2000/svg">
+          <line x1="20" y1="128" x2="240" y2="128" stroke="#16a34a" stroke-width="3"/>
+          <polygon points="50,128 200,128 200,32" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+          <line x1="120" y1="32" x2="200" y2="32" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <path d="M 165 32 A 35 35 0 0 0 170 51" fill="none" stroke="#dc2626" stroke-width="2"/>
+          <text x="142" y="47" font-size="10" font-weight="800" fill="#dc2626">30°</text>
+          <polyline points="188,128 188,116 200,116" fill="none" stroke="#0f172a" stroke-width="1.5"/>
+          <text x="191" y="25" font-size="16">🚁</text>
+          <text x="38" y="125" font-size="15">🎯</text>
+          <text x="206" y="84" font-size="10" font-weight="800" fill="#1e3a8a">300 m</text>
+          <text x="108" y="142" font-size="10" font-weight="800" fill="#15803d">x = ... meter</text>
+        </svg>
+        <div class="graph-caption">Sketsa Ketinggian &amp; Sudut Depresi Drone</div>
+      </div>
+    `;
+
+    const svgIlustrasi18 = `
+      <div class="graph-wrap">
+        <svg width="260" height="150" viewBox="0 0 260 150" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="45,118 135,28 218,118" fill="#f0fdf4" stroke="#0284c7" stroke-width="2.2"/>
+          <line x1="218" y1="118" x2="45" y2="118" stroke="#ea580c" stroke-width="2.4" stroke-dasharray="5,3"/>
+          <circle cx="45" cy="118" r="11" fill="#1d4ed8"/><text x="45" y="121" text-anchor="middle" font-size="9.5" font-weight="900" fill="#fff">A</text>
+          <circle cx="135" cy="28" r="11" fill="#1d4ed8"/><text x="135" y="31" text-anchor="middle" font-size="9.5" font-weight="900" fill="#fff">B</text>
+          <circle cx="218" cy="118" r="11" fill="#1d4ed8"/><text x="218" y="121" text-anchor="middle" font-size="9.5" font-weight="900" fill="#fff">C</text>
+          <text x="72" y="66" text-anchor="middle" font-size="9.5" font-weight="800" fill="#0f172a">√75 m</text>
+          <text x="195" y="66" text-anchor="middle" font-size="9.5" font-weight="800" fill="#0f172a">√108 m</text>
+          <text x="132" y="133" text-anchor="middle" font-size="9.5" font-weight="800" fill="#c2410c">C→A: √48 m (v = 4+√3 m/s)</text>
+        </svg>
+        <div class="graph-caption">Peta Lintasan Robot Transport Antar-Stasiun (Soal No. 18)</div>
+      </div>
+    `;
+
+    let soundEnabled = true;
+    let audioCtx = null;
+    let currentIdx = 0;
+    let wrongCount = 0;
+    let xp = 0;
+    let timeLeft = QUESTION_SECONDS;
+    let timerInterval = null;
+    let isGameOver = false;
+    let cheatTriggered = false;
+    let joyTimer = null;
+
+    function getAudioCtx() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === "suspended") audioCtx.resume();
+      return audioCtx;
+    }
+
+    function playTone(freqs, durations, type = "sine") {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioCtx();
+        let now = ctx.currentTime;
+        freqs.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, now);
+          gain.gain.setValueAtTime(0.16, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + durations[idx]);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + durations[idx]);
+          now += durations[idx] * 0.85;
+        });
+      } catch (e) {}
+    }
+
+    function playFlip() { playTone([440], [0.06], "sine"); }
+    function playCorrect() { playTone([523.25, 659.25, 783.99, 1046.5], [0.09, 0.09, 0.1, 0.24], "triangle"); }
+    function playWrong() { playTone([240, 185], [0.15, 0.22], "sawtooth"); }
+    function playGameOverSound() { playTone([392.0, 349.23, 311.13, 261.63], [0.18, 0.18, 0.18, 0.45], "sawtooth"); }
+    function playFanfare() { playTone([523.25, 659.25, 783.99, 1046.5, 1318.5], [0.11, 0.11, 0.11, 0.16, 0.35], "triangle"); }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      document.getElementById("soundToggle").textContent = soundEnabled ? "🔊" : "🔇";
+      if (soundEnabled) playCorrect();
+    }
+
+    function launchConfetti() {
+      const canvas = document.getElementById("confettiCanvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const colors = ["#fbbf24", "#2563eb", "#22c55e", "#f43f5e", "#a855f7"];
+      const pieces = Array.from({ length: 55 }, () => ({
+        x: canvas.width / 2 + (Math.random() - 0.5) * 200,
+        y: canvas.height * 0.62,
+        vx: (Math.random() - 0.5) * 9,
+        vy: -Math.random() * 10 - 3,
+        size: Math.random() * 7 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rot: Math.random() * 360
+      }));
+
+      let frame = 0;
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.36;
+          p.rot += 6;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rot * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+          ctx.restore();
+        });
+        frame++;
+        if (frame < 60) requestAnimationFrame(animate);
+        else ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      animate();
+    }
+
+    function formatTime(sec) {
+      const m = String(Math.floor(sec / 60)).padStart(2, "0");
+      const s = String(sec % 60).padStart(2, "0");
+      return `${m}:${s}`;
+    }
+
+    function updateTimerUI() {
+      const badge = document.getElementById("timerBadge");
+      badge.textContent = `⏱️ ${formatTime(timeLeft)}`;
+      if (timeLeft <= 30 && !isGameOver) badge.classList.add("urgent");
+      else badge.classList.remove("urgent");
+    }
+
+    function startQuestionTimer() {
+      clearInterval(timerInterval);
+      if (isGameOver) return;
+
+      if (soalLocked[currentIdx]) {
+        updateTimerUI();
+        return;
+      }
+
+      timeLeft = QUESTION_SECONDS;
+      updateTimerUI();
+
+      timerInterval = setInterval(() => {
+        if (isGameOver) {
+          clearInterval(timerInterval);
+          return;
+        }
+        timeLeft -= 1;
+        updateTimerUI();
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          triggerGameOver("Waktu 3 menit untuk soal ini telah habis!", "GAME OVER (Waktu Habis)");
+        }
+      }, 1000);
+    }
+
+    /* ================= ANTI-NYONTEK: PINDAH TAB / KELUAR HALAMAN ================= */
+    function handleTabSwitchAntiCheat() {
+      const readerVisible = document.getElementById("readerPage").style.display === "flex";
+      if (!readerVisible || isGameOver || cheatTriggered) return;
+
+      cheatTriggered = true;
+      clearInterval(timerInterval);
+      triggerGameOver(
+        "Terdeteksi pindah tab atau keluar dari halaman soal! Demi kejujuran latihan, langsung GAME OVER.",
+        "GAME OVER (Pindah Tab / Keluar Halaman)"
+      );
+    }
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        handleTabSwitchAntiCheat();
+      }
+    });
+
+    window.addEventListener("blur", function () {
+      setTimeout(() => {
+        if (document.hasFocus && !document.hasFocus()) {
+          handleTabSwitchAntiCheat();
+        }
+      }, 150);
+    });
+
+    function updateNailongPosition(correctSteps, mode = "idle") {
+      if (isGameOver) return;
+      const walker = document.getElementById("nailongWalker");
+      const sprite = document.getElementById("nailongSprite");
+      const flag = document.getElementById("finishFlag");
+      const stepText = document.getElementById("stepCounterText");
+
+      const pct = 2 + (correctSteps / soalData.length) * 74;
+      walker.style.left = `${pct}%`;
+      stepText.textContent = `Langkah: ${correctSteps} / ${soalData.length}`;
+
+      if (correctSteps >= soalData.length) {
+        flag.textContent = "🏆";
+        flag.classList.add("won");
+      } else {
+        flag.textContent = "🏁";
+        flag.classList.remove("won");
+      }
+
+      clearTimeout(joyTimer);
+      sprite.classList.remove("jump-joy", "oops-shake", "fallen-ko");
+      void sprite.offsetWidth;
+
+      if (mode === "joy") {
+        sprite.classList.add("jump-joy");
+        launchConfetti();
+        joyTimer = setTimeout(() => {
+          if (!isGameOver) sprite.classList.remove("jump-joy");
+        }, 1900);
+      } else if (mode === "oops") {
+        sprite.classList.add("oops-shake");
+      }
+    }
+
+    function triggerGameOver(reasonText, sheetStatus) {
+      isGameOver = true;
+      clearInterval(timerInterval);
+      clearTimeout(joyTimer);
+      playGameOverSound();
+
+      const sprite = document.getElementById("nailongSprite");
+      const track = document.getElementById("nailongTrack");
+      const banner = document.getElementById("motivationBanner");
+
+      sprite.classList.remove("jump-joy", "oops-shake");
+      sprite.classList.add("fallen-ko");
+      track.classList.add("track-ko");
+      banner.textContent = "😵 Nailong jatuh dan tidak bisa bangun... GAME OVER!";
+
+      setTimeout(() => {
+        document.getElementById("readerPage").style.display = "none";
+        document.getElementById("guidePage").style.display = "none";
+        document.getElementById("summaryPage").style.display = "none";
+        document.getElementById("gameoverPage").style.display = "flex";
+        document.getElementById("koReason").textContent = reasonText;
+        kirimKeGoogleSheet(sheetStatus, "koSyncStatus");
+      }, 900);
+    }
+
+    const f = (num, den) => `<span class="frac"><span>${num}</span><span>${den}</span></span>`;
+    const letters = ["A", "B", "C", "D", "E"];
+
+    const soalData = [
+      {
+        type: "single",
+        topik: "Tipe A • Eksponen",
+        hint: "Basis sama: perkalian pangkat ditambah, pembagian pangkat dikurang.",
+        q: "1. Hasil dari 3<sup>4</sup> × 3<sup>2</sup> : 3<sup>5</sup> adalah ….",
+        opts: ["3", "9", "27", "81", "243"],
+        ans: 0,
+        exp: "3<sup>4 + 2 − 5</sup> = 3<sup>1</sup> = <strong>3</strong>."
+      },
+      {
+        type: "single",
+        topik: "Tipe A • Pangkat Negatif",
+        hint: `Ingat a<sup>−n</sup> = ${f(1, "a<sup>n</sup>")}. Tanda minus di pangkat jadi pecahan, bukan bilangan minus.`,
+        q: "2. Nilai dari 3<sup>−3</sup> adalah ….",
+        opts: ["−27", "−9", `−${f(1, 27)}`, `${f(1, 9)}`, `${f(1, 27)}`],
+        ans: 4,
+        exp: `3<sup>−3</sup> = ${f(1, "3<sup>3</sup>")} = <strong>${f(1, 27)}</strong>.`
+      },
+      {
+        type: "single",
+        topik: "Tipe A • Eksponen Aljabar",
+        hint: "Bagi 18 : 6, lalu kurangkan pangkat p dan q.",
+        q: `3. Bentuk sederhana dari ${f("18 p<sup>7</sup> q<sup>9</sup>", "6 p<sup>3</sup> q<sup>4</sup>")} adalah ….`,
+        opts: ["3 p<sup>4</sup> q<sup>5</sup>", "3 p<sup>10</sup> q<sup>13</sup>", "12 p<sup>4</sup> q<sup>5</sup>", "3 p<sup>4</sup> q<sup>4</sup>", "3 p<sup>3</sup> q<sup>5</sup>"],
+        ans: 0,
+        exp: "18 : 6 = 3, p<sup>7−3</sup> = p<sup>4</sup>, q<sup>9−4</sup> = q<sup>5</sup> → <strong>3 p<sup>4</sup> q<sup>5</sup></strong>."
+      },
+      {
+        type: "single",
+        topik: "Tipe A • Pangkat Pecahan",
+        hint: "Pangkat negatif setelah dikurangkan dipindah ke bawah agar positif.",
+        q: `4. Bentuk sederhana dari ${f(`a<sup>${f(5,2)}</sup> b<sup>2</sup>`, `a<sup>${f(1,2)}</sup> b<sup>6</sup>`)} adalah ….`,
+        opts: [`${f("a<sup>2</sup>", "b<sup>4</sup>")}`, `${f("a<sup>3</sup>", "b<sup>4</sup>")}`, "a<sup>2</sup> b<sup>4</sup>", `${f("a<sup>2</sup>", "b<sup>8</sup>")}`, `${f("a<sup>3</sup>", "b<sup>8</sup>")}`],
+        ans: 0,
+        exp: `a: ${f(5,2)} − ${f(1,2)} = 2; b: 2 − 6 = −4 → turun ke penyebut menjadi <strong>${f("a<sup>2</sup>", "b<sup>4</sup>")}</strong>.`
+      },
+      {
+        type: "single",
+        topik: "Tipe A • Aplikasi Konstruksi",
+        hint: "Volume balok = Luas alas × tinggi. Kurangkan pangkat 2 dan 3-nya.",
+        q: "5. Balok beton memiliki luas alas 2<sup>2</sup> × 3<sup>2</sup> dm<sup>2</sup> dan tinggi 2<sup>2</sup> × 3 dm. Bak berisi 2<sup>5</sup> × 3<sup>4</sup> liter adukan (1 dm<sup>3</sup> = 1 liter). Banyak balok yang dapat dicetak adalah ….",
+        graphHtml: svgIlustrasi5,
+        opts: ["6 balok", "9 balok", "12 balok", "18 balok", "24 balok"],
+        ans: 0,
+        exp: `Vol. balok = 2<sup>4</sup> × 3<sup>3</sup>. Banyak balok = ${f("2<sup>5</sup> × 3<sup>4</sup>", "2<sup>4</sup> × 3<sup>3</sup>")} = 2<sup>1</sup> × 3<sup>1</sup> = <strong>6 balok</strong>.`
+      },
+      {
+        type: "single",
+        topik: "Tipe A • Bentuk Akar",
+        hint: "Cari bilangan kuadrat terbesar yang membagi 108 (36 × 3).",
+        q: "6. Bentuk akar paling sederhana dari √108 adalah ….",
+        opts: ["3√6", "6√3", "9√2", "4√6", "12√3"],
+        ans: 1,
+        exp: "√108 = √(36 × 3) = <strong>6√3</strong>."
+      },
+      {
+        type: "single",
+        topik: "Tipe A • Operasi Bentuk Akar",
+        hint: "Ubah semua ke kelipatan √3 (75 = 25×3, 12 = 4×3, 27 = 9×3).",
+        q: "7. Hasil dari √75 + √12 − √27 adalah ….",
+        opts: ["4√3", "5√3", "6√3", "7√3", "3√5"],
+        ans: 0,
+        exp: "5√3 + 2√3 − 3√3 = <strong>4√3</strong>."
+      },
+      {
+        type: "single",
+        topik: "Tipe A • Aplikasi Bangunan",
+        hint: "Gunakan Pythagoras: d = √(p<sup>2</sup> + l<sup>2</sup>).",
+        q: "8. Denah persegi panjang berukuran panjang 6√2 m dan lebar 2√2 m. Panjang diagonal lantai adalah ….",
+        graphHtml: svgIlustrasi8,
+        opts: ["8√2 m", "4√5 m", "2√10 m", "4√10 m", "80 m"],
+        ans: 1,
+        exp: "d = √(72 + 8) = √80 = <strong>4√5 m</strong>."
+      },
+      {
+        type: "single",
+        topik: "Tipe A • Rasionalisasi",
+        hint: "Sederhanakan 15 : 5 dulu, lalu kalikan dengan √3/√3.",
+        q: `9. Bentuk sederhana dari ${f("15", "5√3")} dengan penyebut rasional adalah ….`,
+        opts: ["√3", "3√3", "5√3", `${f(3,5)}√3`, "15√3"],
+        ans: 0,
+        exp: `${f("3", "√3")} × ${f("√3", "√3")} = <strong>√3</strong>.`
+      },
+      {
+        type: "single",
+        topik: "Tipe A • Sekawan Akar",
+        hint: "Kalikan pembilang & penyebut dengan sekawan (3 + √5).",
+        q: `10. Bentuk rasional dari ${f("4", "3 − √5")} adalah ….`,
+        opts: ["3 + √5", "6 + 2√5", "6 − 2√5", `${f("3 + √5", "2")}`, "4 + 2√5"],
+        ans: 0,
+        exp: `${f("4(3 + √5)", "9 − 5")} = <strong>3 + √5</strong>.`
+      },
+      {
+        type: "single",
+        topik: "Tipe A • SPtLDV Grafik",
+        hint: "Garis (0,6)–(6,0) arsir ke bawah → x + y ≤ 6. Garis (0,4)–(8,0) arsir ke atas → x + 2y ≥ 8.",
+        q: "11. Sistem pertidaksamaan dari daerah penyelesaian (DP) pada grafik berikut adalah ….",
+        graphHtml: svgGrafik11,
+        opts: [
+          "x + y ≤ 6 ; x + 2y ≥ 8 ; x ≥ 0 ; y ≥ 0",
+          "x + y ≤ 6 ; 2x + y ≥ 8 ; x ≥ 0 ; y ≥ 0",
+          "x + y ≥ 6 ; x + 2y ≤ 8 ; x ≥ 0 ; y ≥ 0",
+          "x + y ≤ 6 ; x + 2y ≤ 8 ; x ≥ 0 ; y ≥ 0",
+          "x + y ≥ 6 ; x + 2y ≥ 8 ; x ≥ 0 ; y ≥ 0"
+        ],
+        ans: 0,
+        exp: "DP berada di bawah garis x + y = 6 dan di atas garis x + 2y = 8 pada kuadran I."
+      },
+      {
+        type: "single",
+        topik: "Tipe A • Model SPtLDV",
+        hint: "'Banyak lemari (y) paling sedikit sama dengan rak buku (x)' berarti y ≥ x.",
+        q: "12. Rak buku (x) butuh 3 tripleks & 2 jam; lemari (y) butuh 2 tripleks & 3 jam. Maksimal 60 tripleks & 54 jam, dan lemari paling sedikit sama dengan rak buku. Modelnya ….",
+        opts: [
+          "3x + 2y ≤ 60 ; 2x + 3y ≤ 54 ; y ≥ x ; x ≥ 0 ; y ≥ 0",
+          "3x + 2y ≤ 60 ; 2x + 3y ≤ 54 ; x ≥ y ; x ≥ 0 ; y ≥ 0",
+          "2x + 3y ≤ 60 ; 3x + 2y ≤ 54 ; y ≥ x ; x ≥ 0 ; y ≥ 0",
+          "3x + 2y ≥ 60 ; 2x + 3y ≥ 54 ; y ≥ x ; x ≥ 0 ; y ≥ 0",
+          "3x + 3y ≤ 60 ; 2x + 2y ≤ 54 ; y ≥ x ; x ≥ 0 ; y ≥ 0"
+        ],
+        ans: 0,
+        exp: "Tripleks: 3x + 2y ≤ 60; Jam: 2x + 3y ≤ 54; Syarat: <strong>y ≥ x</strong>."
+      },
+      {
+        type: "single",
+        topik: "Tipe A • Daerah SPtLDV",
+        hint: "Perhatikan segitiga hijau (DP) antara x = 4 dan x = 5 di bawah titik potong (2, 3).",
+        q: "13. Diketahui x + y ≤ 5, 3x + 2y ≥ 12, x > 0, y > 0. Letak daerah penyelesaian (DP) yang tepat adalah ….",
+        graphHtml: svgGrafik13,
+        opts: [
+          "Segitiga di kuadran I di atas perpotongan dua garis (2, 3)",
+          "Segi empat menempel pada sumbu-X dari x = 0 sampai x = 4",
+          "Daerah di kiri sumbu-Y dan di atas garis 3x + 2y = 12",
+          "Segitiga kecil di kuadran I antara x = 4 dan x = 5 di bawah titik potong (2, 3)",
+          "Seluruh daerah di atas garis x + y = 5 pada kuadran I"
+        ],
+        ans: 3,
+        exp: "Titik uji (4,2 ; 0,2) memenuhi kedua pertidaksamaan, berada pada segitiga kecil antara x = 4 dan x = 5."
+      },
+      {
+        type: "single",
+        topik: "Tipe A • Trigonometri",
+        hint: "Triple 3, 4, 5! Jika sin = 3/5, maka sisi samping = 4.",
+        q: `14. Jika sin α = ${f(3, 5)} dengan α sudut lancip, maka nilai cos α adalah ….`,
+        opts: [`${f(4, 5)}`, `${f(5, 4)}`, `${f(3, 4)}`, `${f(4, 3)}`, `${f(5, 3)}`],
+        ans: 0,
+        exp: `Samping = 4, miring = 5 → cos α = <strong>${f(4, 5)}</strong>.`
+      },
+      {
+        type: "single",
+        topik: "Tipe A • Sudut Depresi",
+        hint: `tan 30° = ${f("tinggi", "jarak datar")}, dengan tan 30° = ${f(1, "√3")}.`,
+        q: "15. Drone pada ketinggian 300 m melihat target dengan sudut depresi 30°. Jarak horizontal target ke proyeksi drone di tanah adalah ….",
+        graphHtml: svgDrone15,
+        opts: ["100√3 m", "150√3 m", "300√3 m", "600√3 m", "300 m"],
+        ans: 2,
+        exp: `x = ${f(300, "tan 30°")} = 300 × √3 = <strong>300√3 m</strong>.`
+      },
+      {
+        type: "multi",
+        topik: "Tipe B • PG Kompleks (Eksponen)",
+        hint: "Ingat ΔT adalah SELISIH suhu terhadap oli (50°C). Suhu baja = ΔT + 50°C.",
+        q: "16. Centang semua pernyataan yang BENAR (bisa lebih dari satu), lalu klik Kirim Jawaban!",
+        context: `
+          Baja dipanaskan hingga 770°C lalu didinginkan dalam oli bersuhu tetap 50°C.
+          <div class="formula-block">ΔT<sub>t</sub> = ΔT<sub>0</sub> · (${f(1, 2)})<sup>${f("t", 4)}</sup></div>
+          ΔT<sub>t</sub> = T<sub>t</sub> − T<sub>oli</sub> (selisih suhu, °C), t = waktu (menit).
+        `,
+        opts: [
+          "Selisih suhu awal (ΔT<sub>0</sub>) adalah 720°C.",
+          "Pada menit ke-8, suhu baja turun menjadi 180°C.",
+          "Pada menit ke-12, suhu baja mencapai 140°C.",
+          `Persamaan ekuivalen dengan ΔT<sub>t</sub> = 45 · 2<sup>4 − ${f("t", 4)}</sup>.`
+        ],
+        correctIndices: [0, 2, 3],
+        exp: "<strong>Benar: (1), (3), (4).</strong> (1) 770 − 50 = 720°C. (2) Salah: ΔT<sub>8</sub> = 180°C adalah selisih, suhu baja = 180 + 50 = 230°C. (3) ΔT<sub>12</sub> = 90°C → suhu baja = 90 + 50 = 140°C. (4) 720 = 45 × 16 = 45 × 2<sup>4</sup>."
+      },
+      {
+        type: "multi",
+        topik: "Tipe B • PG Kompleks (Uji SPtLDV)",
+        hint: "Substitusikan nilai x dan y ke x + y ≤ 7 dan 2x + y ≥ 6.",
+        q: "17. Diketahui x + y ≤ 7, 2x + y ≥ 6, x ≥ 0, y ≥ 0. Centang semua titik daerah penyelesaian, lalu klik Kirim Jawaban!",
+        opts: [
+          "Titik (2, 3)",
+          "Titik (1, 1)",
+          "Titik (4, 2)",
+          "Titik (3, 4)"
+        ],
+        correctIndices: [0, 2, 3],
+        exp: "<strong>Benar: (2, 3), (4, 2), (3, 4).</strong> Titik (1, 1) salah karena 2(1) + 1 = 3 (tidak ≥ 6)."
+      },
+      {
+        type: "multi",
+        topik: "Tipe B • PG Kompleks (Akar & Otomasi)",
+        hint: "Sederhanakan ke bentuk √3: AB = √75 = 5√3, BC = √108 = 6√3, CA = √48 = 4√3.",
+        q: "18. Centang semua pernyataan yang BENAR (gunakan √3 ≈ 1,73), lalu klik Kirim Jawaban!",
+        graphHtml: svgIlustrasi18,
+        context: `
+          Lintasan robot: AB = √75 m, BC = √108 m, jalur kembali CA = √48 m. Kecepatan jalur CA = (4 + √3) m/s.
+        `,
+        opts: [
+          "Bentuk paling sederhana jarak AB adalah 5√3 m.",
+          "Selisih jarak BC dan CA adalah 2√3 m.",
+          "Total 1 siklus penuh (A→B→C→A) adalah 15√3 m.",
+          "Jika 2 siklus penuh, total jaraknya lebih dari 45 m."
+        ],
+        correctIndices: [0, 1, 2, 3],
+        exp: "<strong>Semua benar!</strong> AB = 5√3, BC = 6√3, CA = 4√3 → selisih BC − CA = 2√3, 1 siklus = 15√3 m, dan 2 siklus = 30√3 ≈ 51,9 m (> 45 m)."
+      },
+      {
+        type: "tf",
+        topik: "Tipe C • Benar–Salah (Bentuk Akar)",
+        hint: "Sederhanakan tiap akar ke bentuk akar paling sederhana sebelum menjumlah/mengurang.",
+        q: "19. Pilih Benar/Salah untuk tiap pernyataan, lalu klik Kirim Jawaban!",
+        statements: [
+          { text: "1. √32 + √18 = 7√2", ans: "B" },
+          { text: "2. 5√6 − √24 = 4√6", ans: "S" },
+          { text: `3. ${f("10", "√5")} = 2√5`, ans: "B" }
+        ],
+        exp: "<strong>1: Benar</strong> (4√2 + 3√2 = 7√2). <strong>2: Salah</strong> (√24 = 2√6, sehingga 5√6 − 2√6 = 3√6). <strong>3: Benar</strong> (10√5 / 5 = 2√5)."
+      },
+      {
+        type: "tf",
+        topik: "Tipe C • Benar–Salah (Trigonometri)",
+        hint: `Dari sin θ = ${f(8, 17)}, sisi depan = 8, miring = 17, maka samping = √(17<sup>2</sup> − 8<sup>2</sup>) = 15.`,
+        q: `20. Pada sudut elevasi θ lengan derek dengan sin θ = ${f(8, 17)}, pilih Benar/Salah lalu klik Kirim Jawaban!`,
+        statements: [
+          { text: `1. cos θ = ${f(15, 17)}`, ans: "B" },
+          { text: `2. csc θ = ${f(17, 8)}`, ans: "B" },
+          { text: `3. tan θ = ${f(15, 8)}`, ans: "S" }
+        ],
+        exp: "<strong>1: Benar</strong> (15/17). <strong>2: Benar</strong> (kebalikan sin = 17/8). <strong>3: Salah</strong> (tan θ = depan/samping = 8/15)."
+      }
+    ];
+
+    let userAns = Array(soalData.length).fill(null);
+    let soalLocked = Array(soalData.length).fill(false);
+    let soalSolvedCorrectly = Array(soalData.length).fill(false);
+
+    function bukaHalamanPetunjuk() {
+      const nama = document.getElementById("inputNama").value.trim();
+      const kelas = document.getElementById("inputJurusan").value.trim();
+      const errBox = document.getElementById("formError");
+
+      if (!nama || !kelas) {
+        errBox.style.display = "block";
+        playWrong();
+        return;
+      }
+
+      errBox.style.display = "none";
+      clearInterval(timerInterval);
+      playFlip();
+
+      document.getElementById("guideStudentGreeting").textContent = `${nama} • Kelas ${kelas}`;
+      document.getElementById("coverPage").style.display = "none";
+      document.getElementById("readerPage").style.display = "none";
+      document.getElementById("gameoverPage").style.display = "none";
+      document.getElementById("summaryPage").style.display = "none";
+      document.getElementById("guidePage").style.display = "flex";
+    }
+
+    function mulaiTantangan() {
+      playFlip();
+      clearInterval(timerInterval);
+      clearTimeout(joyTimer);
+      isGameOver = false;
+      cheatTriggered = false;
+      currentIdx = 0;
+      wrongCount = 0;
+      xp = 0;
+      userAns = Array(soalData.length).fill(null);
+      soalLocked = Array(soalData.length).fill(false);
+      soalSolvedCorrectly = Array(soalData.length).fill(false);
+
+      document.getElementById("nailongTrack").classList.remove("track-ko");
+      document.getElementById("motivationBanner").textContent = "✨ Tiap nomor hanya 1x kesempatan jawab! Ayo raih Trophy!";
+      document.getElementById("coverPage").style.display = "none";
+      document.getElementById("guidePage").style.display = "none";
+      document.getElementById("gameoverPage").style.display = "none";
+      document.getElementById("summaryPage").style.display = "none";
+      document.getElementById("readerPage").style.display = "flex";
+
+      renderHalaman();
+      updateNailongPosition(0, "idle");
+      startQuestionTimer();
+    }
+
+    function keSampul() {
+      playFlip();
+      clearInterval(timerInterval);
+      document.getElementById("guidePage").style.display = "none";
+      document.getElementById("readerPage").style.display = "none";
+      document.getElementById("gameoverPage").style.display = "none";
+      document.getElementById("summaryPage").style.display = "none";
+      document.getElementById("coverPage").style.display = "flex";
+    }
+
+    function toggleHint() {
+      const box = document.getElementById("hintBox");
+      box.style.display = box.style.display === "block" ? "none" : "block";
+    }
+
+    function getCorrectTotal() {
+      return soalSolvedCorrectly.filter(Boolean).length;
+    }
+
+    function renderDots() {
+      const dotsWrap = document.getElementById("pageDots");
+      dotsWrap.innerHTML = "";
+      soalData.forEach((_, idx) => {
+        const b = document.createElement("button");
+        b.className = "dot-btn";
+        b.id = `dot-${idx}`;
+        b.textContent = idx + 1;
+        if (idx === currentIdx) b.classList.add("active");
+        if (soalLocked[idx]) {
+          b.classList.add(soalSolvedCorrectly[idx] ? "done-ok" : "done-bad");
+        }
+
+        b.onclick = () => {
+          if (isGameOver) return;
+          playFlip();
+          currentIdx = idx;
+          renderHalaman();
+          startQuestionTimer();
+        };
+        dotsWrap.appendChild(b);
+      });
+      const activeDot = document.getElementById(`dot-${currentIdx}`);
+      if (activeDot) activeDot.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }
+
+    function renderHalaman() {
+      const item = soalData[currentIdx];
+      const stage = document.getElementById("qStage");
+      const locked = soalLocked[currentIdx];
+      let bodyHtml = "";
+
+      if (item.type === "single") {
+        const answered = userAns[currentIdx];
+        bodyHtml = item.opts.map((opt, oIdx) => {
+          let cls = locked ? "opt-card locked" : "opt-card";
+          if (locked && oIdx === answered) {
+            cls += (oIdx === item.ans) ? " opt-ok" : " opt-bad";
+          } else if (locked && oIdx === item.ans && answered !== item.ans) {
+            cls += " opt-ok";
+          }
+          const clickAttr = locked ? "" : `onclick="jawabSingle(${oIdx})"`;
+          return `
+            <div class="${cls}" ${clickAttr}>
+              <div class="opt-letter">${letters[oIdx]}</div>
+              <div>${opt}</div>
+            </div>
+          `;
+        }).join("");
+      } else if (item.type === "multi") {
+        const selectedArr = Array.isArray(userAns[currentIdx]) ? userAns[currentIdx] : [];
+        bodyHtml = item.opts.map((opt, oIdx) => {
+          const isSel = selectedArr.includes(oIdx);
+          const isRightOpt = item.correctIndices.includes(oIdx);
+          let cls = "chk-card";
+          if (locked) {
+            cls += " locked";
+            if (isSel && isRightOpt) cls += " locked-ok";
+            else if (isSel && !isRightOpt) cls += " locked-bad";
+            else if (!isSel && isRightOpt) cls += " locked-ok";
+          } else if (isSel) {
+            cls += " selected";
+          }
+          const clickAttr = locked ? "" : `onclick="toggleMulti(${oIdx})"`;
+          const mark = (locked && isRightOpt) ? "✓" : (isSel ? "✓" : "");
+          return `
+            <div class="${cls}" ${clickAttr}>
+              <div class="chk-box">${mark}</div>
+              <div>${opt}</div>
+            </div>
+          `;
+        }).join("") + `
+          <button class="btn-check-multi" ${locked ? "disabled" : ""} onclick="periksaMulti()">
+            ${locked ? "🔒 Jawaban Sudah Dikirim" : "✅ Kirim Jawaban"}
+          </button>
+          <div class="inline-warn" id="inlineWarn">⚠️ Pilih minimal satu pernyataan sebelum klik Kirim Jawaban!</div>
+        `;
+      } else if (item.type === "tf") {
+        const tfArr = Array.isArray(userAns[currentIdx]) ? userAns[currentIdx] : Array(item.statements.length).fill(null);
+        bodyHtml = item.statements.map((st, sIdx) => {
+          const val = tfArr[sIdx];
+          const disAttr = locked ? "disabled" : "";
+          return `
+            <div class="tf-row">
+              <div class="tf-stmt">${st.text}</div>
+              <div class="tf-btns">
+                <button class="tf-btn ${val === "B" ? "active-b" : ""}" ${disAttr} onclick="pilihTF(${sIdx}, 'B')">Benar</button>
+                <button class="tf-btn ${val === "S" ? "active-s" : ""}" ${disAttr} onclick="pilihTF(${sIdx}, 'S')">Salah</button>
+              </div>
+            </div>
+          `;
+        }).join("") + `
+          <button class="btn-check-multi" ${locked ? "disabled" : ""} onclick="periksaTF()">
+            ${locked ? "🔒 Jawaban Sudah Dikirim" : "✅ Kirim Jawaban"}
+          </button>
+          <div class="inline-warn" id="inlineWarn">⚠️ Jawab semua baris pernyataan (1, 2, 3) dulu ya!</div>
+        `;
+      }
+
+      let fbHtml = "";
+      if (locked) {
+        const ok = soalSolvedCorrectly[currentIdx];
+        fbHtml = `
+          <div class="feedback ${ok ? "ok" : "bad"}">
+            <span class="fb-title">${ok ? "🎉 Mantap! Benar (+100 XP)" : "❌ Kurang Tepat (Terkunci 1x Percobaan):"}</span>
+            ${item.exp}
+          </div>
+        `;
+      }
+
+      stage.innerHTML = `
+        <div class="q-header-row">
+          <span class="topic-pill">${item.topik}</span>
+          <button class="btn-hint" onclick="toggleHint()">💡 Hint</button>
+        </div>
+        <div class="hint-box" id="hintBox"><strong>Petunjuk:</strong> ${item.hint}</div>
+        ${item.context ? `<div class="context-box">${item.context}</div>` : ""}
+        <div class="q-text">${item.q}</div>
+        ${item.graphHtml || ""}
+        <div>${bodyHtml}</div>
+        ${fbHtml}
+      `;
+
+      document.getElementById("wrongBadge").textContent = `❌ ${wrongCount}/${MAX_WRONG}`;
+      document.getElementById("xpBadge").textContent = `⭐ ${xp}`;
+      document.getElementById("pageCounterText").textContent = `Hal. ${currentIdx + 1}/${soalData.length}`;
+      document.getElementById("progressFill").style.width = `${((currentIdx + 1) / soalData.length) * 100}%`;
+      updateTimerUI();
+
+      document.getElementById("btnPrev").disabled = currentIdx === 0;
+      const btnNext = document.getElementById("btnNext");
+      if (currentIdx === soalData.length - 1) {
+        btnNext.textContent = "Finish & Trophy 🏆";
+        btnNext.className = "btn-nav btn-finish";
+      } else {
+        btnNext.textContent = "Selanjutnya →";
+        btnNext.className = "btn-nav btn-next";
+      }
+
+      renderDots();
+    }
+
+    function lockAndEvaluate(isCorrect) {
+      soalLocked[currentIdx] = true;
+      clearInterval(timerInterval);
+
+      const banner = document.getElementById("motivationBanner");
+      if (isCorrect) {
+        soalSolvedCorrectly[currentIdx] = true;
+        xp += 100;
+        const newTotal = getCorrectTotal();
+        playCorrect();
+
+        if (newTotal >= soalData.length) {
+          banner.textContent = "🏆 LUAR BIASA! 20/20 Langkah Tercapai! Nailong meraih Trophy!";
+        } else {
+          const sisa = soalData.length - newTotal;
+          const quote = motivasiBenar[newTotal % motivasiBenar.length];
+          banner.textContent = `${quote} (Sisa ${sisa} langkah lagi)`;
+        }
+
+        renderHalaman();
+        updateNailongPosition(newTotal, "joy");
+      } else {
+        wrongCount += 1;
+        playWrong();
+        const totalBenar = getCorrectTotal();
+        banner.textContent = `⚠️ Nomor ini terkunci! Salah ke-${wrongCount}/${MAX_WRONG}!`;
+        renderHalaman();
+
+        if (wrongCount >= MAX_WRONG) {
+          triggerGameOver("Kamu sudah 3 kali menjawab salah!", "GAME OVER (3x Salah)");
+        } else {
+          updateNailongPosition(totalBenar, "oops");
+        }
+      }
+    }
+
+    function jawabSingle(oIdx) {
+      if (isGameOver || soalLocked[currentIdx]) return;
+      userAns[currentIdx] = oIdx;
+      lockAndEvaluate(oIdx === soalData[currentIdx].ans);
+    }
+
+    function toggleMulti(oIdx) {
+      if (isGameOver || soalLocked[currentIdx]) return;
+      const curr = Array.isArray(userAns[currentIdx]) ? [...userAns[currentIdx]] : [];
+      const pos = curr.indexOf(oIdx);
+      if (pos >= 0) curr.splice(pos, 1);
+      else curr.push(oIdx);
+      userAns[currentIdx] = curr;
+      playFlip();
+      renderHalaman();
+    }
+
+    function periksaMulti() {
+      if (isGameOver || soalLocked[currentIdx]) return;
+      const curr = Array.isArray(userAns[currentIdx]) ? [...userAns[currentIdx]].sort() : [];
+      if (curr.length === 0) {
+        const warn = document.getElementById("inlineWarn");
+        if (warn) warn.style.display = "block";
+        playWrong();
+        return;
+      }
+      const target = [...soalData[currentIdx].correctIndices].sort();
+      const isSame = curr.length === target.length && curr.every((v, i) => v === target[i]);
+      lockAndEvaluate(isSame);
+    }
+
+    function pilihTF(sIdx, val) {
+      if (isGameOver || soalLocked[currentIdx]) return;
+      const item = soalData[currentIdx];
+      const curr = Array.isArray(userAns[currentIdx]) ? [...userAns[currentIdx]] : Array(item.statements.length).fill(null);
+      curr[sIdx] = val;
+      userAns[currentIdx] = curr;
+      playFlip();
+      renderHalaman();
+    }
+
+    function periksaTF() {
+      if (isGameOver || soalLocked[currentIdx]) return;
+      const item = soalData[currentIdx];
+      const curr = Array.isArray(userAns[currentIdx]) ? userAns[currentIdx] : Array(item.statements.length).fill(null);
+      const complete = curr.every(v => v === "B" || v === "S");
+      if (!complete) {
+        const warn = document.getElementById("inlineWarn");
+        if (warn) warn.style.display = "block";
+        playWrong();
+        return;
+      }
+      const isAllRight = item.statements.every((st, idx) => curr[idx] === st.ans);
+      lockAndEvaluate(isAllRight);
+    }
+
+    function gantiHalaman(step) {
+      if (isGameOver) return;
+      if (step === 1 && currentIdx === soalData.length - 1) {
+        tampilkanRekap();
+        return;
+      }
+      const next = currentIdx + step;
+      if (next >= 0 && next < soalData.length) {
+        playFlip();
+        currentIdx = next;
+        renderHalaman();
+        startQuestionTimer();
+      }
+    }
+
+    function tampilkanRekap() {
+      clearInterval(timerInterval);
+      playFanfare();
+      launchConfetti();
+      const totalBenar = getCorrectTotal();
+      const nilai = Math.round((totalBenar / soalData.length) * 100);
+      const nama = document.getElementById("inputNama").value.trim() || "Murid SMKN 4";
+      const jurusan = document.getElementById("inputJurusan").value.trim() || "Kelas X";
+      const statusText = totalBenar === soalData.length
+        ? "FINISH - TROPHY JUARA (20/20)"
+        : `FINISH (${totalBenar}/20 Benar)`;
+
+      document.getElementById("readerPage").style.display = "none";
+      document.getElementById("summaryPage").style.display = "flex";
+      document.getElementById("certStudentName").textContent = nama;
+      document.getElementById("certStudentClass").textContent = `${jurusan} • ${totalBenar}/${soalData.length} Langkah • ${xp} XP`;
+      document.getElementById("finalScore").textContent = nilai;
+      document.getElementById("finalTitle").textContent =
+        totalBenar === soalData.length
+          ? "🏆 TROPHY JUARA! 20/20 Soal Tuntas!"
+          : `🏁 Garis Finish Tercapai (${totalBenar}/${soalData.length} Benar)`;
+      document.getElementById("finalDesc").textContent =
+        totalBenar === soalData.length
+          ? "Sempurna! Nailong merayakan kemenanganmu di garis finish dengan Trophy!"
+          : "Kamu sudah sampai finish, tapi belum 20/20. Yuk ulangi agar Nailong mendapat Trophy penuh!";
+
+      kirimKeGoogleSheet(statusText, "finishSyncStatus");
+    }
+
+    function lihatReview() {
+      playFlip();
+      currentIdx = 0;
+      const totalBenar = getCorrectTotal();
+      document.getElementById("summaryPage").style.display = "none";
+      document.getElementById("readerPage").style.display = "flex";
+      renderHalaman();
+      updateNailongPosition(totalBenar, "idle");
+      startQuestionTimer();
+    }
+  </script>
+</body>
+</html>
